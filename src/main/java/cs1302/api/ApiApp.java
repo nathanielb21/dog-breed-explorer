@@ -16,6 +16,8 @@ public class ApiApp extends Application {
     Stage stage;
     Scene scene;
     VBox root;
+    BreedInputComponent inputComponent;
+    BreedResultComponent resultComponent;
 
     /**
      * Constructs an {@code ApiApp} object. This default (i.e., no argument)
@@ -23,6 +25,9 @@ public class ApiApp extends Application {
      */
     public ApiApp() {
         root = new VBox();
+        resultComponent = new BreedResultComponent();
+        inputComponent = new BreedInputComponent(resultComponent);
+
     } // ApiApp
 
     /** {@inheritDoc} */
@@ -30,6 +35,8 @@ public class ApiApp extends Application {
     public void start(Stage stage) {
 
         this.stage = stage;
+
+        root.getChildren().addAll(inputComponent, resultComponent);
 
         // demonstrate how to load local asset using "file:resources/"
         Image bannerImage = new Image("file:resources/readme-banner.png");
@@ -41,14 +48,15 @@ public class ApiApp extends Application {
         Label notice = new Label("Modify the starter code to suit your needs.");
 
         // setup scene
-        root.getChildren().addAll(banner, notice);
+        //root.getChildren().addAll(banner, notice);
         scene = new Scene(root);
 
         // setup stage
-        stage.setTitle("ApiApp!");
+        stage.setTitle("Dog Breed Explorer");
         stage.setScene(scene);
         stage.setOnCloseRequest(event -> Platform.exit());
-        stage.sizeToScene();
+        stage.setWidth(600);
+        stage.setHeight(700);
         stage.show();
 
     } // start
